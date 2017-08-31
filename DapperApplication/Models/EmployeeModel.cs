@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 
 namespace DapperApplication.Models {
-    public class Employee {
+    public class EmployeeModel {
         [Display(Name = "Id")]
         public int Empid { get; set; }
         [Required(ErrorMessage = "First name is required.")]
