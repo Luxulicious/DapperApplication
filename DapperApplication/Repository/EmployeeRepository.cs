@@ -10,8 +10,8 @@ using DapperApplication.Models;
 
 namespace DapperApplication.Repository {
     public class EmployeeRepository {
-        public SqlConnection con;
-        public string connectionName = "MySQLConnection";
+        private SqlConnection con;
+        private string connectionName = "MySQLConnection";
 
         private string ConnectionString(string connectionName) {
             this.connectionName = connectionName;
