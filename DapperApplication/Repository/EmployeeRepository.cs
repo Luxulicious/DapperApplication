@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using Dapper;
@@ -13,12 +14,13 @@ namespace DapperApplication.Repository
     public class EmployeeRepository
     {
         private SqlConnection con;
-        private string connectionName = "MySQLConnection";
+        private string connectionName = "conString";
 
         private string ConnectionString(string connectionName)
         {
             this.connectionName = connectionName;
             string conStr = ConfigurationManager.ConnectionStrings[connectionName].ToString();
+
             return conStr;
         }
 

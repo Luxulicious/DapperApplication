@@ -1,10 +1,10 @@
 ﻿@model DapperApplication.Models.EmployeeModel
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>EmployeeModel</h4>
         <hr />
@@ -42,7 +42,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "GetEmployees")
 </div>
 
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
