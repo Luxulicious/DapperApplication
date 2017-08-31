@@ -3,38 +3,41 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using DapperApplication.Models;
+using DapperApplication.Repository;
 
 namespace DapperApplication.Controllers
 {
     public class EmployeeController : Controller
     {
-        // GET: Employee
-        public ActionResult Index()
+        public ActionResult GetEmployees()
+        {
+            EmployeeRepository employeeRepository = new EmployeeRepository();
+            return View(employeeRepository.GetEmployees());
+        }
+
+        public ActionResult AddEmployee()
         {
             return View();
         }
 
-        // GET: Employee/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: Employee/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Employee/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult AddEmployee(EmployeeModel employeeModel)
         {
             try
             {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
+                //TODO Research modelstates
+                if (ModelState.IsValid)
+                {
+                    EmployeeRepository employeeRepository = new EmployeeRepository();
+                    employeeRepository.AddEmployee(employeeModel);
+                    ViewBag.Message = $"Succesfully added {employeeModel.Name}.";
+                }
+                else
+                {
+                    ViewBag.Message = $"Failed to add {employeeModel.Name}.";
+                }
+                return View();
             }
             catch
             {
@@ -42,47 +45,42 @@ namespace DapperApplication.Controllers
             }
         }
 
-        // GET: Employee/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult UpdateEmployee(int id)
         {
-            return View();
+            EmployeeRepository employeeRepository = new EmployeeRepository();
+            EmployeeModel employeeModel = employeeRepository.GetEmployees().Find(Employee => Employee.Id == id);
+            return View(employeeModel);
         }
 
-        // POST: Employee/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult UpdateEmployee(EmployeeModel employeeModel)
         {
             try
             {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
+                EmployeeRepository employeeRepository = new EmployeeRepository();
+                employeeRepository.UpdateEmployee(employeeModel);
+                return RedirectToAction("GetEmployees");
             }
             catch
             {
                 return View();
             }
-        }
-
-        // GET: Employee/Delete/5
-        public ActionResult Delete(int id)
-        {
             return View();
         }
 
-        // POST: Employee/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult DeleteEmployee(int id)
         {
             try
             {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                EmployeeRepository employeeRepository = new EmployeeRepository();
+                if (employeeRepository.DeleteEmployee(id))
+                {
+                    ViewBag.AlertMsg = "Employee deleted succesfully";
+                }
+                return RedirectToAction("GetEmployees");
             }
             catch
             {
-                return View();
+                return RedirectToAction("GetEmployees");
             }
         }
     }

@@ -4,10 +4,12 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace DapperApplication.Models {
-    public class EmployeeModel {
+namespace DapperApplication.Models
+{
+    public class EmployeeModel
+    {
         [Display(Name = "Id")]
-        public int Empid { get; set; }
+        public int Id { get; set; }
         [Required(ErrorMessage = "First name is required.")]
         public string Name { get; set; }
         [Required(ErrorMessage = "City is required.")]
